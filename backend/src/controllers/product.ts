@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import mongoose from 'mongoose';
 import Product from '../models/product';
 import moveImage from '../move-image';
-import BadRequestError from '../errors/bad-request-error';
 import NotFoundError from '../errors/not-found-error';
 
 export const getProducts = async (_req: Request, res: Response, next: NextFunction) => {
@@ -37,10 +35,6 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
   try {
     const { productId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-      throw new BadRequestError('Невалидный id товара');
-    }
-
     const update = req.body;
 
     if (update?.image?.fileName) {
@@ -66,10 +60,6 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { productId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-      throw new BadRequestError('Переданный _id товара невалиден');
-    }
 
     const product = await Product.findByIdAndDelete(productId);
     if (!product) {

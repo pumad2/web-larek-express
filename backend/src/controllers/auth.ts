@@ -92,7 +92,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     res.cookie(refreshCookie.name, refreshToken, refreshCookie.options);
 
-    return res.status(200).send(authResponse({ email: user.email, name: user.name }, accessToken));
+    return res.status(201).send(authResponse({ email: user.email, name: user.name }, accessToken));
   } catch (err) {
     return next(err);
   }

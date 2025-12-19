@@ -23,7 +23,7 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     const id = faker.string.uuid();
-    return res.status(201).json({ id, total });
+    return res.status(200).json({ id, total });
   } catch (err) {
     return next(err);
   }
